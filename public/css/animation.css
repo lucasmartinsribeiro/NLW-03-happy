@@ -1,10 +1,13 @@
 /* Animações */
+
+
+/* Animação de reload */
+
 @keyframes up {
     from {
         opacity: 0;
         transform: translateY(16px);
     }
-
     to {
         opacity: 1;
         transform: translateY(0);
@@ -12,7 +15,45 @@
 }
 
 .animate-up {
-    animation: up;
+    /* animation: name duration timing-function delay iteration-count direction fill-mode; */
+    animation-name: up;
+    animation-duration: 300ms;
+    animation-fill-mode: backwards;
+}
+
+
+/* Animação de tela da page-orphanage */
+
+@keyframes right {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+.animate-right {
+    /* animation: name duration timing-function delay iteration-count direction fill-mode; */
+    animation-name: right;
+    animation-duration: 400ms;
+}
+
+
+/* Animação de Aparecer */
+
+@keyframes appear {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.animate-appear {
+    /* animation: name duration timing-function delay iteration-count direction fill-mode; */
+    animation-name: appear;
     animation-duration: 300ms;
     animation-fill-mode: backwards;
 }

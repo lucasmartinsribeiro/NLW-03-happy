@@ -1,7 +1,7 @@
 // Mapa - Leaflet.js
 
 //Create Map
-const map = L.map('mapid').setView([-23.7137158, -46.4167772], 15);
+const map = L.map('mapid').setView([-27.2109325,-49.6448719], 15);
 
 //Create end add tilelayer
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', ).addTo(map);
@@ -26,7 +26,7 @@ const popup = L.popup({
 
 
 //Create end add marker
-L.marker([-23.7137158, -46.4167772], { icon })
+L.marker([-27.2109325,-49.6448719], { icon })
     .addTo(map)
     .bindPopup(popup)
     // .openPopup(popup);

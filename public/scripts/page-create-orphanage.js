@@ -1,57 +1,62 @@
 // Create map
-const map = L.map('mapid').setView([-21.2026982,-41.8986764], 15)
+const map = L.map('mapid').setView([-21.2140018,-41.8968828], 15)
 
-// Create and add tileLayer
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map)
+// create and add tileLayer
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+{
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+})
+.addTo(map)
 
-//Create icon
+// create icon
 const icon = L.icon({
     iconUrl: "/images/map-marker.svg",
     iconSize: [58, 68],
     iconAnchor: [29, 68]
 })
 
+
 let marker;
 
-// Create and add marker
-map.on('click', function(event) {
-    const lat = event.latlng.lat
-    const lng = event.latlng.lng
 
-    document.querySelector('[name=lat]').value = lat
-    document.querySelector('[name=lng]').value = lng
+// create and add marker
+map.on('click', (event) => {
+    const lat = event.latlng.lat;
+    const lng = event.latlng.lng;
+
+    document.querySelector('[name=lat]').value = lat;
+    document.querySelector('[name=lng]').value = lng;
 
     // remove icon
     marker && map.removeLayer(marker)
 
     // add icon layer
-    marker = L.marker([lat, lng], { icon }).addTo(map)
+    marker = L.marker([lat, lng], { icon })
+    .addTo(map)
 })
 
-// Add photos field
-function addPhotoField() {
-    // Pegar o container de fotos
-    const container = document.querySelector('#images')
-    
-    // Pegar o container para duplicar
-    const fieldsContainer = document.querySelectorAll('.new-upload')
-    
-    // Realizar a duplicação da última imagem adicionada
-    const newFieldContainer = fieldsContainer[fieldsContainer.length - 1].cloneNode(true)
 
-    // Verificar se o campo está vazio, se sim, não adicionar ao container de imagens
+// adicionar o campo de fotos
+function addPhotoField() {
+    // pegar o container de fotos #images
+    const container = document.querySelector('#images')
+    // pegar o container para duplicar .new-image
+    const fieldsContainer = document.querySelectorAll('.new-upload')
+    // realizar o clone da última imagem adicionada.
+    const newFieldContainer = fieldsContainer[fieldsContainer.length - 1].cloneNode(true)
+    
+    // verificar se o campo está vazio, se sim, nao adicionar ao container de imagens
     const input = newFieldContainer.children[0]
 
     if(input.value == "") {
         return
     }
-
-    // Limpar o campo antes de adicionar ao container de imagens
+    // limpar o campo antes de adicionar ao container de imagens
     input.value = ""
 
-    // Adicionar o clone ao container de #images
+    // adicionar o clone ao container de #images
     container.appendChild(newFieldContainer)
-}
+} 
 
 function deleteField(event) {
     const span = event.currentTarget
@@ -59,29 +64,43 @@ function deleteField(event) {
     const fieldsContainer = document.querySelectorAll('.new-upload')
 
     if(fieldsContainer.length < 2) {
-        // Limpar o valor do campo
+        // limpar o valor do campo
         span.parentNode.children[0].value = ""
         return
     }
 
-    // Deletar o campo
-    span.parentNode.remove()
+    // deletar o campo
+    span.parentNode.remove();
+
 }
 
-// Selecionar Sim ou Não
-function toggleSelect(event) {
-    // Retirar a class .active (dos botões)
-    document.querySelectorAll('.button-select button').forEach(function(button) {
-        button.classList.remove('active')
-    })
 
-    // Colocar a class .active nesse botão clicado
+// select yes or no
+function toggleSelect(event) {
+
+    // retirar a class .active (dos botoes)
+    document.querySelectorAll('.button-select button')
+    .forEach( function(button) {
+        button.classList.remove('active') 
+    })
+    
+    // colocar a class .active nesse botao clicado
     const button = event.currentTarget
     button.classList.add('active')
 
-
-    // Atualizar o input hidden cm o valor selecionado
-    const input = document.querySelector('[name="open-on-weekends"]')
-
+    // atualizar o meu input hidden com o valor selecionado
+    const input = document.querySelector('[name="open_on_weekends"]')
+    
     input.value = button.dataset.value
+}
+
+function validate(event) {
+
+    // validar se lat e lng estao preenchidos
+    const needsLatAndLng = false;
+    if(needsLatAndLng) {
+        event.preventDefault()
+        alert('Selecione um ponto no mapa')
+    }
+    
 }
